@@ -6,11 +6,13 @@ interface Props {
 }
 
 export default function DocumentListItem({ document }: Props) {
+  const date = new Date(document.date);
+  const formattedDate = date.toDateString();
   return (
     <Link href={`/${document.id}`}>
       <div className="flex bg-sky-300/50 p-2 gap-2 mb-4 justify-evenly rounded">
         <h3>{document.title}</h3>
-        <p>{document.date}</p>
+        <p>{formattedDate}</p>
       </div>
     </Link>
   );

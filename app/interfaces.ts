@@ -5,5 +5,5 @@ export interface Document{
     bgColor: string,
     textColor: string,
     date: string,
-    isDeleted: boolean,
+    isDeleted: string,
 }
