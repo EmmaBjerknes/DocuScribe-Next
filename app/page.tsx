@@ -16,8 +16,8 @@ export default function Home() {
   }, []);
   return (
     <div className="flex flex-col p-6">
-      {data.map((document) => (
-        <DocumentListItem document={document} key={document} />
+      {data.map((document, index) => (
+        <DocumentListItem document={document} key={index} />
       ))}
     </div>
   );

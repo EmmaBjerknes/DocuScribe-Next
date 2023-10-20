@@ -11,4 +11,17 @@ export default async function handler(req, res) {
       res.status(500).json({ error: "Det uppstod ett fel vid databasfrågan." });
     }
   }
+  if (req.method === "POST") {
+    const { title, content, bgColor, textColor, isDeleted } = req.body;
+    try {
+      const results = await query({
+        query:
+          "INSERT INTO documents (title, content, bgColor, textColor, isDeleted) VALUES (?, ?, ?, ?, ?);",
+        values: [title, content, bgColor, textColor, isDeleted],
+      });
+      res.status(200).json({ results: results });
+    } catch (error) {
+      res.status(500).json({ error: "Ingen data kunde läggas in" });
+    }
+  }
 }
