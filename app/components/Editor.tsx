@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { createDocument } from "../interfaces";
 import BundledEditor from "../BundledEditor";
 import { Document } from "../interfaces";
+import PopupMsg from "./PopupMsg";
 
 export default function TinyMCEEditor({
   document,
@@ -23,7 +24,7 @@ export default function TinyMCEEditor({
     if (document) {
       setDocValues({
         title: document.title,
-        content: document.content,
+        content: document.content.toString(),
         bgColor: "white",
         textColor: "black",
         isDeleted: "false",
@@ -116,7 +117,7 @@ export default function TinyMCEEditor({
           />
           <BundledEditor
             apiKey={process.env.TINY_MCE}
-            initialValue={docValues.content}
+            value={docValues.content}
             init={{
               height: 500,
               menubar: true,
@@ -189,9 +190,9 @@ export default function TinyMCEEditor({
             disabled={docValues.content === "" ? true : false}
             className="mt-2 border-none p-2 rounded w-full bg-green-500"
           >
-            Save BT
+            Save
           </button>
-          {showPopup && <div>New document is created</div>}
+          {showPopup && <PopupMsg />}
         </>
       )}
     </div>
