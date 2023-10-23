@@ -24,4 +24,17 @@ export default async function handler(req, res) {
       res.status(500).json({ error: "Ingen data kunde läggas in" });
     }
   }
+  if (req.method === "PUT") {
+    const { id, title, content, bgColor, textColor, isDeleted } = req.body;
+    try {
+      const results = await query({
+        query:
+          "UPDATE documents SET title = ?, content = ?, bgColor = ?, textColor = ?, isDeleted = ? WHERE id = ?;",
+        values: [title, content, bgColor, textColor, isDeleted, id],
+      });
+      res.status(200).json({ results: results });
+    } catch (error) {
+      res.status(500).json({ error: "Ingen data kunde uppdateras" });
+    }
+  }
 }

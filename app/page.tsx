@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DocumentListItem from "./components/DocumentListItem";
 import { Document } from "./interfaces";
 import DocumentDetails from "./components/DocumentDetails";
+import Link from "next/link";
 
 export default function Home() {
   const [data, setData] = useState<Document[]>([]);
@@ -35,7 +36,10 @@ export default function Home() {
       </div>
       <div className="w-4/5 flex justify-center">
         {selectedDocument ? (
-          <DocumentDetails document={selectedDocument} />
+          <>
+            <DocumentDetails document={selectedDocument} />
+            <Link href={`/${selectedDocument.id}`}>EDIT</Link>
+          </>
         ) : (
           <p>Click on a document to view it here</p>
         )}

@@ -1,6 +1,4 @@
 import { Document } from "../interfaces";
-import { useState } from "react";
-import DocumentDetails from "./DocumentDetails";
 
 interface Props {
   document: Document;
@@ -8,7 +6,6 @@ interface Props {
 }
 
 export default function DocumentListItem({ document, onClick }: Props) {
-  const [isShown, setIsShown] = useState(false);
   const date = new Date(document.date);
   const formattedDate = date.toDateString();
 
