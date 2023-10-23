@@ -15,7 +15,6 @@ export default function Home() {
       const apiURL = `${process.env.NEXT_PUBLIC_URL}/api/documents`;
       const response = await fetch(apiURL);
       const res = await response.json();
-      console.log(res);
       setData(res.results);
     }
     getDocuments();
