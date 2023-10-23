@@ -35,6 +35,7 @@ export default function TinyMCEEditor({
     if (showPopup) {
       const timer = setTimeout(() => {
         setShowPopup(false);
+        window.location.reload();
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -70,7 +71,7 @@ export default function TinyMCEEditor({
     try {
       const response = await fetch(apiURL, options);
       setShowPopup(true);
-      window.location.reload();
+
       if (!response.ok) {
         throw new Error("No data was sent");
       }
@@ -92,7 +93,7 @@ export default function TinyMCEEditor({
     try {
       const response = await fetch(apiURL, options);
       setShowPopup(true);
-      window.location.reload();
+
       if (!response.ok) {
         throw new Error("No data was sent");
       }
@@ -103,7 +104,7 @@ export default function TinyMCEEditor({
 
   return (
     <div>
-      {docValues.content ? (
+      {document ? (
         <>
           <input
             type="text"
@@ -118,7 +119,7 @@ export default function TinyMCEEditor({
             initialValue={docValues.content}
             init={{
               height: 500,
-              menubar: false,
+              menubar: true,
               plugins: [
                 "advlist",
                 "autolink",
@@ -131,7 +132,7 @@ export default function TinyMCEEditor({
                 "wordcount",
               ],
               toolbar:
-                "undo redo" +
+                "undo redo | blocks | " +
                 "bold italic forecolor backcolor | alignleft aligncenter " +
                 "alignright alignjustify | bullist numlist outdent indent | " +
                 "removeformat ",
@@ -162,7 +163,7 @@ export default function TinyMCEEditor({
             initialValue=""
             init={{
               height: 500,
-              menubar: false,
+              menubar: true,
               plugins: [
                 "advlist",
                 "autolink",
@@ -175,7 +176,7 @@ export default function TinyMCEEditor({
                 "wordcount",
               ],
               toolbar:
-                "undo redo" +
+                "undo redo | blocks | " +
                 "bold italic forecolor backcolor | alignleft aligncenter " +
                 "alignright alignjustify | bullist numlist outdent indent | " +
                 "removeformat ",
@@ -185,10 +186,10 @@ export default function TinyMCEEditor({
           <button
             type="button"
             onClick={onSubmit}
-            disabled={titleRef.current?.value !== "" ? true : false}
+            disabled={docValues.content === "" ? true : false}
             className="mt-2 border-none p-2 rounded w-full bg-green-500"
           >
-            Save
+            Save BT
           </button>
           {showPopup && <div>New document is created</div>}
         </>
