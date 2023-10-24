@@ -4,8 +4,9 @@ import { createDocument } from "../interfaces";
 import BundledEditor from "../BundledEditor";
 import { Document } from "../interfaces";
 import PopupMsg from "./PopupMsg";
-import CancelButton from "./CancelButton";
+import CancelButton from "./Buttons/CancelButton";
 import { useRouter } from "next/navigation";
+import { SaveEditButton, SaveNewButton } from "./Buttons/SaveButtons";
 
 export default function TinyMCEEditor({
   document,
@@ -107,13 +108,14 @@ export default function TinyMCEEditor({
   };
 
   return (
-    <div>
+    <div className="p-4 cursor-pointer text-center bg-[#374fc7] bg-opacity-10 rounded-xl shadow-md backdrop-blur-md border border-[rgba(167,173,234,0.41)] border-opacity-20">
       {document ? (
         <>
           <input
             type="text"
             name="title"
-            className="w-full h-5 p-2 outline-none border-none rounded text-black"
+            className="w-full h-5 p-2 outline-none border-none rounded text-black mb-4
+            "
             placeholder={docValues.title}
             ref={titleRef}
             onChange={onTitleChange}
@@ -143,15 +145,9 @@ export default function TinyMCEEditor({
             }}
             onEditorChange={onEditorChange}
           />
-          <div className="flex gap-16">
+          <div className="flex gap-16 justify-center mt-8">
             <CancelButton />
-            <button
-              type="button"
-              onClick={onEdit}
-              className="mt-2 border-none p-2 rounded w-full bg-green-500"
-            >
-              Save
-            </button>
+            <SaveEditButton onEdit={onEdit} />
           </div>
           {showPopup && <div>SAVED!</div>}
         </>
@@ -160,7 +156,8 @@ export default function TinyMCEEditor({
           <input
             type="text"
             name="title"
-            className="w-full h-5 p-2 outline-none border-none rounded text-black"
+            className="w-full h-5 p-2 outline-none border-none rounded text-black mb-4
+            "
             placeholder="Title:"
             ref={titleRef}
             onChange={onTitleChange}
@@ -190,16 +187,13 @@ export default function TinyMCEEditor({
             }}
             onEditorChange={onEditorChange}
           />
-          <div className="flex gap-16">
+          <div className="flex gap-16 justify-center mt-8">
             <CancelButton />
-            <button
-              type="button"
-              onClick={onSubmit}
-              disabled={docValues.content === "" ? true : false}
-              className="mt-2 border-none p-2 rounded w-full bg-green-500"
-            >
-              Save
-            </button>
+            <SaveNewButton
+              onSubmit={onSubmit}
+              content={docValues.content}
+              disabled={docValues.content === ""}
+            />
           </div>
           <PopupMsg />
           {showPopup && <div>SAVED!</div>}

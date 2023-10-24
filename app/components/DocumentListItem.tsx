@@ -17,7 +17,7 @@ export default function DocumentListItem({ document, onClick }: Props) {
     <>
       <div
         onClick={handleClick}
-        className="flex flex-col flex-wrap w-56 bg-sky-300/50 p-2 gap-2 mb-4 rounded cursor-pointer text-center"
+        className="flex flex-col flex-wrap w-56 p-2 gap-2 mb-4 cursor-pointer text-center bg-[#374fc7] bg-opacity-10 rounded-xl shadow-md backdrop-blur-md border border-[rgba(167,173,234,0.41)] border-opacity-20"
       >
         <h3 className="text-xl font-bold">{document.title}</h3>
         <p>{formattedDate}</p>

@@ -26,7 +26,7 @@ export default function DocumentPage({ params }: { params: { id: number } }) {
   }, [params.id]);
 
   return (
-    <div>
+    <div className="w-3/4 mt-6">
       <Editor document={data} />
     </div>
   );

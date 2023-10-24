@@ -11,7 +11,7 @@ const CancelButton = () => {
     <button
       onClick={handleCancel}
       type="button"
-      className="mt-2 border-none p-2 rounded w-full bg-red-500"
+      className="inline-block font-medium px-2 py-1 text-black mx-0.3 my-0.3 rounded-full text-center transition-all duration-200 bg-red-500 shadow-md backdrop-blur-md hover:bg-red-400"
     >
       Cancel
     </button>

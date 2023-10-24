@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import DocumentListItem from "./components/DocumentListItem";
 import { Document } from "./interfaces";
 import DocumentDetails from "./components/DocumentDetails";
-import Link from "next/link";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import DeleteButton from "./components/DeleteButton";
+import DeleteButton from "./components/Buttons/DeleteButton";
+import EditLinkButton from "./components/Buttons/EditLinkButton";
 
 export default function Home() {
   const [data, setData] = useState<Document[]>([]);
@@ -71,8 +70,8 @@ export default function Home() {
 
   return (
     <div className="flex w-full gap-8 flex-row flex-wrap justify-evenly">
-      <div className="p-6 rounded cursor-pointer">
-        <fieldset className="w-auto p-4 border-solid border">
+      <div className="p-6 rounded">
+        <fieldset className="w-auto p-4 border-solid border border-slate-800 ">
           <legend>Your documents:</legend>
           {nonDeletedDocs.map((document, index) => (
             <DocumentListItem
@@ -84,25 +83,20 @@ export default function Home() {
         </fieldset>
       </div>
 
-      <div className="p-6 rounded cursor-pointer w-1/2">
+      <div className="p-6 rounded w-1/2">
         {selectedDocument ? (
           <>
-            <fieldset className=" flex justify-center w-auto p-4 border-solid border flex-col gap-3">
+            <fieldset className=" flex justify-center w-auto p-4 border-solid border-slate-800 border flex-col gap-3">
               <legend>{selectedDocument.title}</legend>
               <DocumentDetails document={selectedDocument} />
               <div className="flex justify-end gap-8">
-                <Link
-                  href={`/${selectedDocument.id}`}
-                  className="bg-green-200 w-8 rounded p-1"
-                >
-                  <EditNoteIcon />
-                </Link>
                 <DeleteButton onClick={handleDelete} />
+                <EditLinkButton href={`/${selectedDocument.id}`} />
               </div>
             </fieldset>
           </>
         ) : (
-          <fieldset className=" flex justify-center w-auto p-4 border-solid border">
+          <fieldset className=" flex justify-center w-auto p-4 border-solid border border-slate-800 ">
             <legend>Click on a document to view it here</legend>
           </fieldset>
         )}
