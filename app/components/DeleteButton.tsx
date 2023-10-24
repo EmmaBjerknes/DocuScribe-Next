@@ -1,7 +1,16 @@
-export default function DeleteButton() {
-  return (
-    <button className="inline-block outline-none cursor-pointer border-none px-5 h-12 leading-12 rounded-md bg-red-600 text-white font-normal text-base shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200">
-      Remove
-    </button>
-  );
+import DeleteIcon from "@mui/icons-material/Delete";
+
+interface DeleteButtonProps {
+  onClick: () => void;
 }
+
+const DeleteButton = ({ onClick }: DeleteButtonProps) => {
+  return (
+    <DeleteIcon
+      className="bg-red-200 rounded !h-auto p-1 !w-8"
+      onClick={onClick}
+    />
+  );
+};
+
+export default DeleteButton;

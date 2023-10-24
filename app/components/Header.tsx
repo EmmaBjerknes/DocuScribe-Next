@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 
 export default function Header() {
   const pathname = usePathname();
@@ -10,12 +11,12 @@ export default function Header() {
         <h1 className="text-4xl">DocuScribe Next</h1>
       </Link>
       <nav>
-        {pathname !== "/addDocument" && (
+        {pathname === "/" && (
           <Link
             href="/addDocument"
-            className="mt-2 border-none p-2 rounded bg-green-400 w-full text-center"
+            className="flex mt-2 border-none p-2 rounded bg-green-400 w-full text-center"
           >
-            ADD
+            <PostAddIcon />
           </Link>
         )}
       </nav>

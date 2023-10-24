@@ -17,10 +17,10 @@ export default function DocumentListItem({ document, onClick }: Props) {
     <>
       <div
         onClick={handleClick}
-        className="flex bg-sky-300/50 p-2 gap-2 mb-4 justify-evenly rounded cursor-pointer"
+        className="flex flex-col flex-wrap w-56 bg-sky-300/50 p-2 gap-2 mb-4 rounded cursor-pointer text-center"
       >
+        <h3 className="text-xl font-bold">{document.title}</h3>
         <p>{formattedDate}</p>
-        <h3>{document.title}</h3>
       </div>
     </>
   );

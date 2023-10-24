@@ -4,12 +4,15 @@ import { createDocument } from "../interfaces";
 import BundledEditor from "../BundledEditor";
 import { Document } from "../interfaces";
 import PopupMsg from "./PopupMsg";
+import CancelButton from "./CancelButton";
+import { useRouter } from "next/navigation";
 
 export default function TinyMCEEditor({
   document,
 }: {
-  document: Document | undefined;
+  document?: Document | undefined;
 }) {
+  const router = useRouter();
   const titleRef = useRef<HTMLInputElement>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [docValues, setDocValues] = useState<createDocument>({
@@ -36,11 +39,11 @@ export default function TinyMCEEditor({
     if (showPopup) {
       const timer = setTimeout(() => {
         setShowPopup(false);
-        window.location.reload();
+        router.back();
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [showPopup]);
+  }, [router, showPopup]);
 
   const onEditorChange = (content: string) => {
     setDocValues((prevState) => ({
@@ -140,13 +143,16 @@ export default function TinyMCEEditor({
             }}
             onEditorChange={onEditorChange}
           />
-          <button
-            type="button"
-            onClick={onEdit}
-            className="mt-2 border-none p-2 rounded w-full bg-green-500"
-          >
-            Save
-          </button>
+          <div className="flex gap-16">
+            <CancelButton />
+            <button
+              type="button"
+              onClick={onEdit}
+              className="mt-2 border-none p-2 rounded w-full bg-green-500"
+            >
+              Save
+            </button>
+          </div>
           {showPopup && <div>SAVED!</div>}
         </>
       ) : (
@@ -184,15 +190,19 @@ export default function TinyMCEEditor({
             }}
             onEditorChange={onEditorChange}
           />
-          <button
-            type="button"
-            onClick={onSubmit}
-            disabled={docValues.content === "" ? true : false}
-            className="mt-2 border-none p-2 rounded w-full bg-green-500"
-          >
-            Save
-          </button>
-          {showPopup && <PopupMsg />}
+          <div className="flex gap-16">
+            <CancelButton />
+            <button
+              type="button"
+              onClick={onSubmit}
+              disabled={docValues.content === "" ? true : false}
+              className="mt-2 border-none p-2 rounded w-full bg-green-500"
+            >
+              Save
+            </button>
+          </div>
+          <PopupMsg />
+          {showPopup && <div>SAVED!</div>}
         </>
       )}
     </div>
