@@ -12,12 +12,12 @@ export default async function handler(req, res) {
     }
   }
   if (req.method === "POST") {
-    const { title, content, bgColor, textColor, isDeleted } = req.body;
+    const { title, content, isDeleted } = req.body;
     try {
       const results = await query({
         query:
-          "INSERT INTO documents (title, content, bgColor, textColor, isDeleted) VALUES (?, ?, ?, ?, ?);",
-        values: [title, content, bgColor, textColor, isDeleted],
+          "INSERT INTO documents (title, content, isDeleted) VALUES (?, ?, ?);",
+        values: [title, content, isDeleted],
       });
       res.status(200).json({ results: results });
     } catch (error) {
@@ -25,12 +25,12 @@ export default async function handler(req, res) {
     }
   }
   if (req.method === "PUT") {
-    const { id, title, content, bgColor, textColor, isDeleted } = req.body;
+    const { id, title, content, isDeleted } = req.body;
     try {
       const results = await query({
         query:
-          "UPDATE documents SET title = ?, content = ?, bgColor = ?, textColor = ?, isDeleted = ? WHERE id = ?;",
-        values: [title, content, bgColor, textColor, isDeleted, id],
+          "UPDATE documents SET title = ?, content = ?, isDeleted = ? WHERE id = ?;",
+        values: [title, content, isDeleted, id],
       });
       res.status(200).json({ results: results });
     } catch (error) {

@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createDocument } from "../interfaces";
-import BundledEditor from "../BundledEditor";
 import { Document } from "../interfaces";
+import BundledEditor from "../BundledEditor";
 import PopupMsg from "./PopupMsg";
 import CancelButton from "./Buttons/CancelButton";
-import { useRouter } from "next/navigation";
 import { SaveEditButton, SaveNewButton } from "./Buttons/SaveButtons";
 
 export default function TinyMCEEditor({
@@ -19,8 +19,6 @@ export default function TinyMCEEditor({
   const [docValues, setDocValues] = useState<createDocument>({
     title: "",
     content: "",
-    bgColor: "white",
-    textColor: "black",
     isDeleted: "false",
   });
 
@@ -29,8 +27,6 @@ export default function TinyMCEEditor({
       setDocValues({
         title: document.title,
         content: document.content.toString(),
-        bgColor: "white",
-        textColor: "black",
         isDeleted: "false",
       });
     }
@@ -108,7 +104,7 @@ export default function TinyMCEEditor({
   };
 
   return (
-    <div className="p-4 cursor-pointer text-center bg-[#374fc7] bg-opacity-10 rounded-xl shadow-md backdrop-blur-md border border-[rgba(167,173,234,0.41)] border-opacity-20">
+    <div className="p-4 text-center bg-[#374fc7] bg-opacity-10 rounded-xl shadow-md backdrop-blur-md border border-[rgba(167,173,234,0.41)] border-opacity-20">
       {document ? (
         <>
           <input
@@ -149,7 +145,7 @@ export default function TinyMCEEditor({
             <CancelButton />
             <SaveEditButton onEdit={onEdit} />
           </div>
-          {showPopup && <div>SAVED!</div>}
+          {showPopup && <PopupMsg show={showPopup} />}
         </>
       ) : (
         <>
@@ -195,8 +191,7 @@ export default function TinyMCEEditor({
               disabled={docValues.content === ""}
             />
           </div>
-          <PopupMsg />
-          {showPopup && <div>SAVED!</div>}
+          {showPopup && <PopupMsg show={showPopup} />}
         </>
       )}
     </div>

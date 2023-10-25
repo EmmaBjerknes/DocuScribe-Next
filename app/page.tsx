@@ -67,13 +67,14 @@ export default function Home() {
   const nonDeletedDocs = data.filter(
     (document) => document.isDeleted === "false"
   );
+  const sortedDocuments = nonDeletedDocs.reverse();
 
   return (
-    <div className="flex w-full gap-8 flex-row flex-wrap justify-evenly">
+    <div className="flex w-full gap-8 flex-row flex-wrap justify-evenly mt-8">
       <div className="p-6 rounded">
-        <fieldset className="w-auto p-4 border-solid border border-slate-800 ">
-          <legend>Your documents:</legend>
-          {nonDeletedDocs.map((document, index) => (
+        <fieldset className="w-auto p-4">
+          <legend className="text-lg">Your documents:</legend>
+          {sortedDocuments.map((document, index) => (
             <DocumentListItem
               document={document}
               key={index}
@@ -86,8 +87,8 @@ export default function Home() {
       <div className="p-6 rounded w-1/2">
         {selectedDocument ? (
           <>
-            <fieldset className=" flex justify-center w-auto p-4 border-solid border-slate-800 border flex-col gap-3">
-              <legend>{selectedDocument.title}</legend>
+            <fieldset className=" flex justify-center w-auto p-4 flex-col gap-3">
+              <legend className="text-lg">{selectedDocument.title}</legend>
               <DocumentDetails document={selectedDocument} />
               <div className="flex justify-end gap-8">
                 <DeleteButton onClick={handleDelete} />
@@ -96,8 +97,10 @@ export default function Home() {
             </fieldset>
           </>
         ) : (
-          <fieldset className=" flex justify-center w-auto p-4 border-solid border border-slate-800 ">
-            <legend>Click on a document to view it here</legend>
+          <fieldset className=" flex justify-center w-auto p-4 ">
+            <legend className="text-lg">
+              Click on a document to view it here
+            </legend>
           </fieldset>
         )}
       </div>

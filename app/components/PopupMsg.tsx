@@ -1,9 +1,14 @@
-export default function PopupMsg() {
+interface PopupProps {
+  show: boolean;
+}
+
+export default function PopupMsg({ show }: PopupProps) {
   return (
-    <div className="relative inline-block cursor-pointer select-none">
-      <button className="invisible w-40 text-white text-center rounded-md absolute -ml-20 p-1 z-10 bottom-2 left-2 bg-red-300">
-        Saved
-      </button>
+    <div
+      className={` p-12 text-xl bg-[#27e36c] bg-opacity-80 rounded-xl shadow-md backdrop-blur-md border border-[rgba(61,176,93,0.41)] border-opacity-20
+      fixed top-1/2 left-1/2 ${show ? "animate-custom-ping" : ""}`}
+    >
+      SAVED!
     </div>
   );
 }
