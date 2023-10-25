@@ -71,11 +71,10 @@ export default function TinyMCEEditor({
 
     try {
       const response = await fetch(apiURL, options);
-      setShowPopup(true);
-
       if (!response.ok) {
         throw new Error("No data was sent");
       }
+      setShowPopup(true);
     } catch (error) {
       console.log(Error, error);
     }
@@ -93,11 +92,10 @@ export default function TinyMCEEditor({
 
     try {
       const response = await fetch(apiURL, options);
-      setShowPopup(true);
-
       if (!response.ok) {
         throw new Error("No data was sent");
       }
+      setShowPopup(true);
     } catch (error) {
       console.log(Error, error);
     }
