@@ -7,10 +7,22 @@ import DeleteButton from "./components/Buttons/DeleteButton";
 import EditLinkButton from "./components/Buttons/EditLinkButton";
 
 export default function Home() {
+  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<Document[]>([]);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(
     null
   );
+
+  useEffect(() => {
+    async function getDocuments() {
+      const apiURL = `${process.env.NEXT_PUBLIC_URL}/api/documents`;
+      const response = await fetch(apiURL);
+      const res = await response.json();
+      setData(res.results);
+      setLoading(false);
+    }
+    getDocuments();
+  }, []);
 
   const handleDelete = () => {
     if (selectedDocument) {
@@ -50,16 +62,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    async function getDocuments() {
-      const apiURL = `${process.env.NEXT_PUBLIC_URL}/api/documents`;
-      const response = await fetch(apiURL);
-      const res = await response.json();
-      setData(res.results);
-    }
-    getDocuments();
-  }, []);
-
   const handleClick = (document: Document) => {
     setSelectedDocument(document);
   };
@@ -69,6 +71,8 @@ export default function Home() {
   );
   const sortedDocuments = nonDeletedDocs.reverse();
 
+  if (isLoading) return <p>Loading...</p>;
+  if (!data) return <p>No document data found</p>;
   return (
     <div className="flex w-full gap-8 flex-row flex-wrap justify-evenly mt-8">
       <div className="p-6 rounded">
@@ -90,7 +94,7 @@ export default function Home() {
             <fieldset className=" flex justify-center w-auto p-4 flex-col gap-3">
               <legend className="text-lg">{selectedDocument.title}</legend>
               <DocumentDetails document={selectedDocument} />
-              <div className="flex justify-end gap-8">
+              <div className="flex justify-end max-w-screen-md gap-8">
                 <DeleteButton onClick={handleDelete} />
                 <EditLinkButton href={`/${selectedDocument.id}`} />
               </div>
