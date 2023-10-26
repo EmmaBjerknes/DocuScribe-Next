@@ -18,8 +18,8 @@ export default function DocumentPage({ params }: { params: { id: number } }) {
 
       if (res && res.results) {
         const param = Number(params.id);
-        const x = res.results.find((doc) => doc.id === param);
-        setData(x);
+        const singleDoc = res.results.find((doc) => doc.id === param);
+        setData(singleDoc);
       }
     }
     getDocuments();
